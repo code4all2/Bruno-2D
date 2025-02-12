@@ -3,12 +3,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float speed;
-     Animator animator;
+    Animator animator;
 
     bool isFloor;
-   [SerializeField] private float distance;
+    [SerializeField] private float distance;
     Rigidbody2D rb;
     [SerializeField] private float jumpForce;
+    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private GameObject projetil;
 
     void Start()
     {
@@ -18,22 +20,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, distance);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, distance, layerMask);
 
         isFloor = hit.collider;
 
         if (hit.collider != null)
         {
-            if (isFloor) { 
-             
-            }
+
         }
     }
     void Update()
     {
         float x = Input.GetAxis("Horizontal"); // variaveis locais 
         float y = Input.GetAxis("Vertical");// variaveis locais 
-       
+
         Vector2 position = new Vector2(x, y);
 
         // Vector2 pos = new Vector2(x, y);
@@ -46,11 +46,11 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 rotateY = transform.eulerAngles;
 
-        if(position.x < 0)
+        if (position.x < 0)
         {
             rotateY.y = 180f;
         }
-        else if(position.x > 0)
+        else if (position.x > 0)
         {
             rotateY.y = 0f;
         }
@@ -59,8 +59,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && isFloor)
         {
-          //  rb.AddForce(Vector3.up * jumpForce);
+            //  rb.AddForce(Vector3.up * jumpForce);
             rb.AddForce(Vector2.up * jumpForce);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Instantiate(projetil, transform.position, transform.rotation);
         }
     }
 }

@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 334368645}
   - component: {fileID: 334368649}
   - component: {fileID: 334368650}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,8 +153,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  distance: 2
-  jumpForce: 10
+  distance: 0.9
+  jumpForce: 300
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  projetil: {fileID: 2279985266327298265, guid: 07f8e3a85fd3b3c4d8687f1ffa33149a, type: 3}
 --- !u!95 &334368646
 Animator:
   serializedVersion: 7
@@ -542,7 +546,7 @@ GameObject:
   - component: {fileID: 1961576724}
   - component: {fileID: 1961576723}
   - component: {fileID: 1961576722}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Chao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
