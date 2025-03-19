@@ -11,7 +11,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private GameObject projetil;
-
+    [SerializeField] private Transform boca;
+    Vector2 position;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -34,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal"); // variaveis locais 
         float y = Input.GetAxis("Vertical");// variaveis locais 
 
-        Vector2 position = new Vector2(x, y);
+        position = new Vector2(x, y);
 
         // Vector2 pos = new Vector2(x, y);
 
@@ -43,8 +44,25 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat("mover", position.magnitude);
 
+        Girar();
 
-        Vector3 rotateY = transform.eulerAngles;
+        if (Input.GetButtonDown("Jump") && isFloor)
+        {
+            //  rb.AddForce(Vector3.up * jumpForce);
+            rb.AddForce(Vector2.up * jumpForce);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Instantiate(projetil, boca.position, boca.rotation);
+        }
+    }
+
+
+    void Girar()
+    {
+
+        Vector2 rotateY = transform.eulerAngles;
 
         if (position.x < 0)
         {
@@ -56,16 +74,5 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.eulerAngles = rotateY;
-
-        if (Input.GetButtonDown("Jump") && isFloor)
-        {
-            //  rb.AddForce(Vector3.up * jumpForce);
-            rb.AddForce(Vector2.up * jumpForce);
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Instantiate(projetil, transform.position, transform.rotation);
-        }
     }
 }
