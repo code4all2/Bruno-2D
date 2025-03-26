@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject projetil;
     [SerializeField] private Transform boca;
     Vector2 position;
+    int moeda;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -74,5 +75,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.eulerAngles = rotateY;
+    }
+
+    public int GetMoedas()
+    {
+        return moeda;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.name.Contains("moeda"))
+        {
+            moeda++;
+            Destroy(collision.gameObject);
+            Debug.Log(moeda);
+        }
     }
 }
