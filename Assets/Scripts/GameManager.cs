@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     public TMP_Text vidaText;
     public TMP_Text moedaText;
+    public GameObject gameOverScreen;
 
     int vidas = 3;
     int moedas;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
 
+        gameOverScreen.SetActive(false);
         portal.gameObject.SetActive(false);
     }
 
@@ -30,6 +32,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (vidas <= 0)
+        {
+            gameOverScreen.SetActive (true);
+            return;
+        }
         moedas = player.GetMoedas();
 
         vidaText.SetText(vidas.ToString());
